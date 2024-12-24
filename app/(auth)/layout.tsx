@@ -7,7 +7,7 @@ const Layout = ({
 }>) => {
   return (
     <>
-      <div className="animation-container">
+      {/* <div className="animation-container">
         <div className="lightning-container">
           <div className="lightning white"></div>
           <div className="lightning red"></div>
@@ -25,7 +25,7 @@ const Layout = ({
           <div className="shape disc white"></div>
           <div className="shape triangle blue"></div>
         </div>
-      </div>
+      </div> */}
       <div className="">{children}</div>
     </>
   );
