@@ -1,4 +1,4 @@
-import { metadata } from "@/app/layout";
+// import { metadata } from "@/app/layout";
 import type { InferSelectModel } from "drizzle-orm";
 import {
   pgTable,
