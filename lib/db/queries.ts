@@ -1,7 +1,7 @@
 import "server-only";
 
 import { genSaltSync, hashSync } from "bcrypt-ts";
-import { and, asc, desc, eq, gt, gte } from "drizzle-orm";
+import { and, /*asc, desc,*/ eq /*gt, gte*/ } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/postgres-js";
 import postgres from "postgres";
 
@@ -104,6 +104,7 @@ export async function createGame(
     });
   } catch (error) {
     console.error("Failed to create game in database.");
+    throw error;
   }
 }
 
@@ -137,5 +138,6 @@ export async function createUserGame(
     });
   } catch (error) {
     console.error("Failed to create game in database.");
+    throw error;
   }
 }

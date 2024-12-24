@@ -28,10 +28,10 @@ const geistSans = Geist({
   subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+// const geistMono = Geist_Mono({
+//   variable: "--font-geist-mono",
+//   subsets: ["latin"],
+// });
 
 export const metadata: Metadata = {
   title: "Let's Play!",
@@ -60,7 +60,7 @@ export default async function RootLayout({
           autoCapitalize="words"
         />
       </head>
-      <body className="antialiased">
+      <body className={`antialiased ${geistSans}`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
