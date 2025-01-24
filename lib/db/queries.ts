@@ -53,6 +53,7 @@ export async function createUser(
   const hash = hashSync(password, salt);
   const created_at = new Date();
   const last_login = new Date();
+  const role = "user";
 
   try {
     return await db.insert(user).values({
@@ -63,6 +64,7 @@ export async function createUser(
       last_name,
       created_at,
       last_login,
+      role,
     });
   } catch (error) {
     console.error("Failed to create user in database");

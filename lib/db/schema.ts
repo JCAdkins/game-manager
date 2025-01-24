@@ -17,6 +17,7 @@ export const user = pgTable("User", {
   password: varchar("password", { length: 64 }),
   first_name: varchar("first-name", { length: 32 }),
   last_name: varchar("last-name", { length: 32 }),
+  role: varchar("role").notNull(),
   // profile_image: varchar("profile_picture", { length: 256 }),
   created_at: timestamp("created_at").defaultNow(),
   last_login: timestamp("last_login"),

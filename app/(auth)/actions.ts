@@ -8,7 +8,6 @@ import {
 } from "@/lib/db/queries";
 import { signIn } from "./auth";
 import { capitalizeFirstLetter } from "@/lib/utils";
-import { StringDecoder } from "string_decoder";
 
 const authLogInFormSchema = z.object({
   email: z.string().email(),
@@ -73,7 +72,7 @@ export interface RegisterActionState {
     | "username_taken"
     | "email_in_use"
     | "in_progress";
-  error?: String[];
+  error?: string[];
 }
 
 export const register = async (
