@@ -1,6 +1,6 @@
 CREATE TABLE "Game" (
 	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
-	"name" varchar(100) NOT NULL,
+	"title" varchar(100) NOT NULL,
 	"description" text,
 	"genre" varchar(50),
 	"release_date" timestamp DEFAULT now(),
@@ -10,7 +10,7 @@ CREATE TABLE "Game" (
 	"play_count" integer DEFAULT 0,
 	"high_score" integer DEFAULT 0,
 	"screenshots" jsonb,
-	"created_at" timestamp DEFAULT now(),
+	"created_at" timestamp DEFAULT now() NOT NULL,
 	"updated_at" timestamp DEFAULT now()
 );
 --> statement-breakpoint
@@ -26,8 +26,10 @@ CREATE TABLE "User" (
 );
 --> statement-breakpoint
 CREATE TABLE "UserGame" (
+	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"user_id" uuid NOT NULL,
 	"game_id" uuid NOT NULL,
+	"game_title" varchar(100) NOT NULL,
 	"played_at" timestamp DEFAULT now(),
 	"score" integer,
 	"metadata" jsonb

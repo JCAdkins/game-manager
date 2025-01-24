@@ -1,7 +1,7 @@
 import "server-only";
 
 import { genSaltSync, hashSync } from "bcrypt-ts";
-import { and, /*asc, desc,*/ eq /*gt, gte*/ } from "drizzle-orm";
+import { and, /*asc, desc,*/ eq, lt /*gt, gte*/ } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/postgres-js";
 import postgres from "postgres";
 
@@ -22,9 +22,20 @@ import {
 const client = postgres(process.env.POSTGRES_URL!);
 const db = drizzle(client);
 
-export async function getUser(email: string): Promise<Array<User>> {
+export async function getUserByEmail(email: string): Promise<Array<User>> {
   try {
     return await db.select().from(user).where(eq(user.email, email));
+  } catch (error) {
+    console.error("Failed to get user from database");
+    throw error;
+  }
+}
+
+export async function getUserByUsername(
+  username: string
+): Promise<Array<User>> {
+  try {
+    return await db.select().from(user).where(eq(user.username, username));
   } catch (error) {
     console.error("Failed to get user from database");
     throw error;
@@ -126,6 +137,7 @@ export async function getUserGame(
 export async function createUserGame(
   user_id: string,
   game_id: string,
+  game_title: string,
   score: number,
   metadata: JSON[]
 ) {
@@ -133,6 +145,7 @@ export async function createUserGame(
     return await db.insert(userGame).values({
       user_id,
       game_id,
+      game_title,
       score,
       metadata,
     });
@@ -141,3 +154,30 @@ export async function createUserGame(
     throw error;
   }
 }
+
+export async function getUserGamesByUserId({ id }: { id: string }) {
+  try {
+    return await db
+      .select()
+      .from(userGame)
+      .where(
+        and(
+          eq(userGame.user_id, id), // Filter by user_id
+          lt(userGame.played_at, new Date())
+        ) // Ensure played_at is in the past
+      );
+  } catch (error) {
+    console.error("Failed to get chats by user from database");
+    throw error;
+  }
+}
+
+// export async function getChatById({ id }: { id: string }) {
+//   try {
+//     const [selectedChat] = await db.select().from(chat).where(eq(chat.id, id));
+//     return selectedChat;
+//   } catch (error) {
+//     console.error("Failed to get chat by id from database");
+//     throw error;
+//   }
+// }

@@ -1,14 +1,23 @@
-import { Sidebar } from "@/components/sidebar";
+import { cookies } from "next/headers";
+
+import { AppSidebar } from "@/components/app-sidebar";
+import { auth } from "../(auth)/auth";
+import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 
 export const experimental_ppr = true;
 
-export default function Layout({ children }: { children: React.ReactNode }) {
+export default async function Layout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  const [session, cookieStore] = await Promise.all([auth(), cookies()]);
+  const isCollapsed = cookieStore.get("sidebar:state")?.value !== "true";
+
   return (
-    <div className="flex h-screen flex-col md:flex-row md:overflow-hidden">
-      <div className="w-full flex-none md:w-64 bg-gray-900">
-        <Sidebar />
-      </div>
-      <div className="flex-grow p-6 md:overflow-y-auto md:p-12">{children}</div>
-    </div>
+    <SidebarProvider defaultOpen={true}>
+      <AppSidebar user={session?.user} />
+      <SidebarInset>{children}</SidebarInset>
+    </SidebarProvider>
   );
 }

@@ -1,5 +1,5 @@
 {
-  "id": "86d633c5-68f7-410e-b560-98bde9ab5104",
+  "id": "f9d1e805-c5a1-4f36-93f6-f8caab87255e",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -15,8 +15,8 @@
           "notNull": true,
           "default": "gen_random_uuid()"
         },
-        "name": {
-          "name": "name",
+        "title": {
+          "name": "title",
           "type": "varchar(100)",
           "primaryKey": false,
           "notNull": true
@@ -82,7 +82,7 @@
           "name": "created_at",
           "type": "timestamp",
           "primaryKey": false,
-          "notNull": false,
+          "notNull": true,
           "default": "now()"
         },
         "updated_at": {
@@ -168,6 +168,13 @@
       "name": "UserGame",
       "schema": "",
       "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
         "user_id": {
           "name": "user_id",
           "type": "uuid",
@@ -177,6 +184,12 @@
         "game_id": {
           "name": "game_id",
           "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "game_title": {
+          "name": "game_title",
+          "type": "varchar(100)",
           "primaryKey": false,
           "notNull": true
         },

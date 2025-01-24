@@ -1,8 +1,14 @@
 "use server";
 
 import { z } from "zod";
-import { createUser, getUser } from "@/lib/db/queries";
+import {
+  createUser,
+  getUserByEmail,
+  getUserByUsername,
+} from "@/lib/db/queries";
 import { signIn } from "./auth";
+import { capitalizeFirstLetter } from "@/lib/utils";
+import { StringDecoder } from "string_decoder";
 
 const authLogInFormSchema = z.object({
   email: z.string().email(),
@@ -12,7 +18,18 @@ const authLogInFormSchema = z.object({
 const authRegisterFormSchema = z.object({
   email: z.string().email(),
   username: z.string().min(6),
-  password: z.string().min(10),
+  password: z
+    .string()
+    .min(10)
+    .regex(/[A-Z]/, {
+      message: "Password must contain at least one uppercase letter",
+    })
+    .regex(/[a-z]/, {
+      message: "Password must contain at least one lowercase letter",
+    })
+    .regex(/[!@#$%^&*(),.?":{}|<>]/, {
+      message: "Password must contain at least one special character",
+    }),
   first_name: z.string().optional(),
   last_name: z.string().optional(),
 });
@@ -53,8 +70,10 @@ export interface RegisterActionState {
     | "success"
     | "failed"
     | "invalid_data"
-    | "user_exists"
+    | "username_taken"
+    | "email_in_use"
     | "in_progress";
+  error?: String[];
 }
 
 export const register = async (
@@ -72,9 +91,11 @@ export const register = async (
         //created_at & last_login timestamps are already being generated for us
       });
 
-    const [user] = await getUser(email);
+    let [user] = await getUserByEmail(email);
+    if (user) return { status: "email_in_use" };
 
-    if (user) return { status: "user_exists" };
+    [user] = await getUserByUsername(username);
+    if (user) return { status: "username_taken" };
 
     await createUser(
       email,
@@ -91,7 +112,14 @@ export const register = async (
     return { status: "success" };
   } catch (error) {
     if (error instanceof z.ZodError) {
-      return { status: "invalid_data" };
+      // console.log("error: ");
+      const err = error.errors.map((err) => {
+        return (
+          '"' + capitalizeFirstLetter(`${err.path.join(".")}" - ${err.message}`)
+        );
+      });
+      // console.log(err);
+      return { status: "invalid_data", error: err };
     }
 
     return { status: "failed" };

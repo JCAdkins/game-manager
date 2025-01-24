@@ -27,7 +27,7 @@ const Page = () => {
     if (state.status === "failed") {
       toast.error("Invalid credentials!");
     } else if (state.status === "invalid_data") {
-      toast.error("Failed validating your submission!");
+      toast.error("Please enter valid inputs!");
     } else if (state.status === "success") {
       setIsSuccessful(true);
       router.refresh();

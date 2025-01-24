@@ -1,3 +1,4 @@
+import { usePathname } from "next/navigation";
 import Form from "next/form";
 
 import { Input } from "./ui/input";
@@ -14,6 +15,9 @@ export function AuthForm({
   children: React.ReactNode;
   defaultEmail?: string;
 }) {
+  const isRegisterPage = usePathname().includes("/register");
+  const isLoginPage = usePathname().includes("/login");
+
   return (
     <Form action={action} className="flex flex-col gap-4 px-4 sm:px-16">
       <div className="flex flex-col gap-2">
@@ -53,7 +57,61 @@ export function AuthForm({
           required
         />
       </div>
+      {isRegisterPage && (
+        <>
+          <div className="flex flex-col gap-2">
+            <Label
+              htmlFor="username"
+              className="text-zinc-600 font-normal dark:text-zinc-400"
+            >
+              Username
+            </Label>
 
+            <Input
+              id="username"
+              name="username"
+              className="bg-muted text-md md:text-sm"
+              type="text"
+              placeholder="Choose a username"
+              required
+            />
+          </div>
+
+          <div className="flex flex-col gap-2">
+            <Label
+              htmlFor="first_name"
+              className="text-zinc-600 font-normal dark:text-zinc-400"
+            >
+              First Name (Optional)
+            </Label>
+
+            <Input
+              id="first_name"
+              name="first_name"
+              className="bg-muted text-md md:text-sm"
+              type="text"
+              placeholder="First Name"
+            />
+          </div>
+
+          <div className="flex flex-col gap-2">
+            <Label
+              htmlFor="last_name"
+              className="text-zinc-600 font-normal dark:text-zinc-400"
+            >
+              Last Name (Optional)
+            </Label>
+
+            <Input
+              id="last_name"
+              name="last_name"
+              className="bg-muted text-md md:text-sm"
+              type="text"
+              placeholder="Last Name"
+            />
+          </div>
+        </>
+      )}
       {children}
     </Form>
   );

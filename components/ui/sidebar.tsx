@@ -524,6 +524,7 @@ const sidebarMenuButtonVariants = cva(
         default: "h-8 text-sm",
         sm: "h-7 text-xs",
         lg: "h-12 text-sm group-data-[collapsible=icon]:!p-0",
+        custom: "h-75 tex-sm group-data-[collapsible=icon]:!p-0",
       },
     },
     defaultVariants: {
@@ -591,6 +592,19 @@ const SidebarMenuButton = React.forwardRef<
   }
 );
 SidebarMenuButton.displayName = "SidebarMenuButton";
+
+const SidebarMenuBttnCard = React.forwardRef<
+  HTMLDivElement,
+  React.ComponentProps<"div">
+>(({ className, ...props }, ref) => (
+  <div
+    ref={ref}
+    data-sidebar="menu-bttn-card"
+    className={cn("group/menu-bttn-card relative", className)}
+    {...props}
+  />
+));
+SidebarMenuItem.displayName = "SidebarMenuBttnCard";
 
 const SidebarMenuAction = React.forwardRef<
   HTMLButtonElement,
@@ -734,6 +748,37 @@ const SidebarMenuSubButton = React.forwardRef<
   );
 });
 SidebarMenuSubButton.displayName = "SidebarMenuSubButton";
+
+export const GameCard = ({
+  game_title,
+  game_id,
+  game_images,
+  user_score,
+}: {
+  game_title: string;
+  game_id: string;
+  game_images: string[];
+  user_score: number | null;
+}) => {
+  // const game_high_score = getGameById(game_id).then(
+  //   (game) => game[0]?.high_score!
+  // );
+
+  return (
+    <div className="w-full rounded-sm">
+      <div className="flex w-full justify-evenly items-center">
+        <strong className="text-md">{game_title}</strong>
+        <img
+          src={game_images[0]!}
+          alt={`Image of ${game_title}`}
+          className="max-w-[100px] max-h-[75px] w-fit h-fit"
+        />
+      </div>
+      <div>User Score: {user_score}</div>
+      <div>Game High Score: 25</div>
+    </div>
+  );
+};
 
 export {
   Sidebar,
