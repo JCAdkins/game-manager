@@ -45,7 +45,7 @@ const AdminDashboard = async () => {
               className="shadow-customYP col-span-2 h-fit w-fit bg-opacity-0 object-contain lg:col-span-1 rounded-lg hover:shadow-customGI hover:cursor-pointer"
             >
               <GameCard
-                className="bg-card text-foreground/50"
+                className="bg-foreground/5  text-foreground/50"
                 {...game}
               ></GameCard>
             </div>

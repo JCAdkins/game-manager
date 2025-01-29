@@ -82,8 +82,9 @@ const PureGameItem = ({
             game_title={user_game.game_title}
             game_id={user_game.game_id}
             game_images={game_images}
-            user_score={user_game.score}
-            game_description={user_game.game_title}
+            game_description="The classic arcade version of snake."
+            img_border
+            className="bg-card text-foreground/50"
           />
         </Link>
       </SidebarMenuButton>

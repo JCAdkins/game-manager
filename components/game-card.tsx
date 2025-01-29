@@ -3,7 +3,6 @@
 import React from "react";
 import { Card } from "./ui/card";
 import { formatDateToMMDDYYYY } from "@/lib/utils";
-import { cn } from "@/lib/utils";
 
 export const GameCard = React.forwardRef<
   HTMLDivElement,
@@ -15,6 +14,7 @@ export const GameCard = React.forwardRef<
     game_description?: string;
     game_release?: Date;
     className?: string;
+    img_border?: boolean;
   }
 >(
   (
@@ -25,6 +25,7 @@ export const GameCard = React.forwardRef<
       game_plays = 0,
       game_description = "description",
       game_release = new Date(),
+      img_border = false,
       className,
       ...props
     },
@@ -49,7 +50,9 @@ export const GameCard = React.forwardRef<
           <img
             src={game_images[0]}
             alt="Game Image"
-            className="max-w-[100px] max-h-[75px] w-fit h-fit rounded-lg"
+            className={`max-w-[100px] max-h-[75px] w-fit h-fit rounded-lg ${
+              img_border ? "border-2 border-foreground/50" : ""
+            }`}
           />
           <p className="flex flex-row max-w-[15ch]">{game_description}</p>
         </div>
