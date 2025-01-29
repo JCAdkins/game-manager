@@ -8,6 +8,7 @@ import { memo, useEffect, useState } from "react";
 import { toast } from "sonner";
 import useSWR from "swr";
 
+import { GameCard } from "./game-card";
 import {
   // CheckCircleFillIcon,
   GlobeIcon,
@@ -37,7 +38,6 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import {
-  GameCard,
   SidebarGroup,
   SidebarGroupContent,
   SidebarMenu,
@@ -83,6 +83,7 @@ const PureGameItem = ({
             game_id={user_game.game_id}
             game_images={game_images}
             user_score={user_game.score}
+            game_description={user_game.game_title}
           />
         </Link>
       </SidebarMenuButton>
@@ -250,10 +251,10 @@ export function SidebarHistory({ user }: { user: User | undefined }) {
     return (
       <SidebarGroup>
         <SidebarGroupContent>
-          <div className="text-zinc-500 w-full flex flex-row justify-center items-center text-sm gap-2">
-            <div>
-              Your game history will appear here once you start playing!
-            </div>
+          <div
+            className={`text-zinc-500 w-full flex flex-row justify-center items-center text-sm gap-2 `}
+          >
+            Your game history will appear here once you start playing!
           </div>
         </SidebarGroupContent>
       </SidebarGroup>

@@ -222,14 +222,24 @@ const Sidebar = React.forwardRef<
         data-side={side}
       >
         {/* This is what handles the sidebar gap on desktop */}
-        <div
+        {/* <div
           className={cn(
-            "duration-200 relative h-svh w-[--sidebar-width] bg-transparent transition-[width] ease-linear",
-            "group-data-[collapsible=offcanvas]:w-0",
+            "duration-200 relative h-svh w-[--sidebar-width] bg-transparent transition-[width] ease-linear md:flex",
+            "group-data-[collapsible=offcanvas]:w-0:left-[calc(var(--sidebar-width)*-1]",
             "group-data-[side=right]:rotate-180",
             variant === "floating" || variant === "inset"
-              ? "group-data-[collapsible=icon]:w-[calc(var(--sidebar-width-icon)_+_theme(spacing.4))]"
-              : "group-data-[collapsible=icon]:w-[--sidebar-width-icon]"
+              ? "p-2 group-data-[collapsible=icon]:w-[calc(var(--sidebar-width-icon)_+_theme(spacing.4)_+2px)]"
+              : "group-data-[collapsible=icon]:w-[--sidebar-width-icon] group-data-[side=left]:border-r group-data-[side=right]:border-l"
+          )}
+        /> */}
+        <div
+          className={cn(
+            "duration-200 relative h-svh w-[--sidebar-width] transition-[left,right,width] ease-linear md:flex group-data-[collapsible=offcanvas]:left-[calc(var(--sidebar-width)*-1)]",
+            // Adjust the padding for floating and inset variants.
+            variant === "floating" || variant === "inset"
+              ? "p-2 group-data-[collapsible=icon]:w-[calc(var(--sidebar-width-icon)_+_theme(spacing.4)_+2px)]"
+              : "group-data-[collapsible=icon]:w-[--sidebar-width-icon] group-data-[side=left]:border-r group-data-[side=right]:border-l",
+            className
           )}
         />
         <div
@@ -749,37 +759,6 @@ const SidebarMenuSubButton = React.forwardRef<
 });
 SidebarMenuSubButton.displayName = "SidebarMenuSubButton";
 
-export const GameCard = ({
-  game_title,
-  game_id,
-  game_images,
-  user_score,
-}: {
-  game_title: string;
-  game_id: string;
-  game_images: string[];
-  user_score: number | null;
-}) => {
-  // const game_high_score = getGameById(game_id).then(
-  //   (game) => game[0]?.high_score!
-  // );
-
-  return (
-    <div className="w-full rounded-sm">
-      <div className="flex w-full justify-evenly items-center">
-        <strong className="text-md">{game_title}</strong>
-        <img
-          src={game_images[0]!}
-          alt={`Image of ${game_title}`}
-          className="max-w-[100px] max-h-[75px] w-fit h-fit"
-        />
-      </div>
-      <div>User Score: {user_score}</div>
-      <div>Game High Score: 25</div>
-    </div>
-  );
-};
-
 export {
   Sidebar,
   SidebarContent,
@@ -795,6 +774,7 @@ export {
   SidebarMenuAction,
   SidebarMenuBadge,
   SidebarMenuButton,
+  SidebarMenuBttnCard,
   SidebarMenuItem,
   SidebarMenuSkeleton,
   SidebarMenuSub,

@@ -28,6 +28,15 @@ export const fetcher = async (url: string) => {
 };
 
 // Capitalize the first letter of a string
-export function capitalizeFirstLetter(string: String) {
+export function capitalizeFirstLetter(string: string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+export function formatDateToMMDDYYYY(dateString: string) {
+  const date = new Date(dateString); // Create a Date object
+  const month = String(date.getMonth() + 1).padStart(2, "0"); // Months are 0-indexed
+  const day = String(date.getDate()).padStart(2, "0"); // Day of the month
+  const year = date.getFullYear(); // Full year
+
+  return `${month}/${day}/${year}`;
 }

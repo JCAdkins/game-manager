@@ -18,6 +18,12 @@ const config: Config = {
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
       },
+      boxShadow: {
+        customYP:
+          "3px 6px 10px -3px rgba(251, 251, 0, 0.4), 2px 4px 6px -2px rgba(119, 0, 255, 0.2)",
+        customGI:
+          "3px 6px 10px -3px rgba(0, 255, 38, 0.4), 2px 4px 6px -2px rgba(255, 0, 17, 0.2)",
+      },
       colors: {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",

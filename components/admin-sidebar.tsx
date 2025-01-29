@@ -7,11 +7,14 @@ import {
   Sidebar,
   SidebarContent,
   SidebarFooter,
+  SidebarGroup,
   //   SidebarGroup,
   //   SidebarGroupContent,
   SidebarHeader,
-  SidebarMenuButton,
   SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+  SidebarSeparator,
   useSidebar,
 } from "@/components/ui/sidebar";
 
@@ -19,25 +22,44 @@ export function AdminSidebar({ user }: { user: User | undefined }) {
   const router = useRouter();
   const { setOpenMobile } = useSidebar();
 
+  const options = [
+    { title: "Game List", func: () => console.log("Game List") },
+    { title: "More Games", func: () => console.log("More Games") },
+    {
+      title: "Something else for admin.",
+      func: () => console.log("Something else."),
+    },
+  ];
+
   return (
     <Sidebar
-      /*className="group-data-[side=left]:border-r-0*/ side="left"
+      className="group-data-[side=left]:border-r-0 md:w-[300px]"
       collapsible="icon"
       variant="sidebar"
-      className="md:w-[300px]"
     >
-      <SidebarHeader>
-        <SidebarMenu>
-          <div className="flex flex-row justify-between items-center">
-            <span className="text-lg font-semibold px-2 hover:bg-muted rounded-md cursor-pointer">
-              Admin Dashboard
-            </span>
-          </div>
-        </SidebarMenu>
-      </SidebarHeader>
+      <SidebarHeader>Admin Dashboard</SidebarHeader>
       <SidebarContent>
-        <div>Games</div>
-        <div>Something else for admin.</div>
+        <SidebarMenu>
+          <SidebarGroup className="text-zinc-400">
+            {options.map((option, ind) => {
+              return (
+                <SidebarMenuItem key={ind}>
+                  <SidebarMenuButton onClick={option.func}>
+                    {option.title}
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              );
+            })}
+          </SidebarGroup>
+          <SidebarSeparator />
+          <SidebarGroup>
+            <SidebarMenuItem>
+              <SidebarMenuButton onClick={() => router.push("/arcade")}>
+                Arcade
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+          </SidebarGroup>
+        </SidebarMenu>
       </SidebarContent>
       <SidebarFooter>{user && <SidebarUserNav user={user} />}</SidebarFooter>
     </Sidebar>
