@@ -10,10 +10,6 @@ interface ExtendedUser extends User {
   role: string; // Add the 'role' field to the user
 }
 
-interface ExtendedSession extends Session {
-  user: ExtendedUser;
-}
-
 export const {
   handlers: { GET, POST },
   auth,
@@ -46,28 +42,4 @@ export const {
       },
     }),
   ],
-  // callbacks: {
-  // // JWT callback: Include the role in the JWT token
-  // async jwt({ token, user }) {
-  //   if (user) {
-  //     token.id = user.id;
-  //     token.role = user.role; // Store the role in the token
-  //   }
-  //   return token;
-  // },
-  // // Session callback: Include the role in the session object
-  // async session({
-  //   session,
-  //   token,
-  // }: {
-  //   session: ExtendedSession;
-  //   token: any;
-  // }) {
-  //   if (session.user) {
-  //     session.user.id = token.id as string;
-  //     session.user.role = token.role; // Add the role to the session
-  //   }
-  //   return session;
-  // },
-  // },
 });

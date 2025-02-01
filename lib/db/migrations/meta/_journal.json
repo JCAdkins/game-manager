@@ -15,6 +15,13 @@
       "when": 1737707700355,
       "tag": "0001_mixed_hiroim",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1738314503796,
+      "tag": "0002_fair_black_crow",
+      "breakpoints": true
     }
   ]
 }

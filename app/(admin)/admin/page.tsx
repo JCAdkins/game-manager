@@ -1,57 +1,61 @@
+"use server";
+
 import { GameCard } from "@/components/game-card";
-import { auth } from "../../(auth)/auth";
+// import { auth } from "../../(auth)/auth";
+import { CardContainer } from "@/components/card-container";
+import { getAllGames } from "@/lib/db/queries";
+import { Suspense } from "react";
 
 const AdminDashboard = async () => {
-  const session = await auth();
+  // const session = await auth();
 
-  if (!session || session.user?.role !== "admin") {
-    return null;
-  }
+  // if (!session || session.user?.role !== "admin") {
+  //   return null;
+  // }
 
-  const prop = {
-    game_title: "Snake",
-    game_id: "34209fec09-ab64",
-    game_images: [
-      "https://www.coolmathgames.com/sites/default/files/snake.png",
-      "",
-    ],
-    user_score: null,
-    game_description: "The classic arcade version of snake.",
+  const LoadingSkeleton = () => {
+    return (
+      <>
+        {[...Array(6)].map((_, ind) => (
+          <div
+            key={ind}
+            className="h-44 w-64 bg-foreground/10 animate-pulse rounded-lg"
+          />
+        ))}
+      </>
+    );
   };
 
-  const gamesList = [
-    { ...prop },
-    { ...prop },
-    { ...prop },
-    { ...prop },
-    { ...prop },
-    { ...prop },
-    { ...prop },
-    { ...prop },
-    { ...prop },
-  ];
+  const GameList = async () => {
+    const list = await getAllGames(); // Fetch games from database
+
+    return (
+      <CardContainer>
+        {list.map((game, ind) => (
+          <GameCard
+            key={game.id}
+            grow_on_hover
+            img_border
+            className="bg-foreground/5 transition-transform duration-100 ease-in-out will-change-transform text-foreground/50 shadow-customYP hover:shadow-customGI hover:cursor-pointer"
+            game={game}
+          />
+        ))}
+      </CardContainer>
+    );
+  };
+
+  const list = await getAllGames();
 
   return (
     <div className="w-full h-full mx-auto">
       <h2 className="sticky top-0 bg-accent text-foreground/50 text-center p-2 z-50">
         This is the admin dashboard.
       </h2>
-      <div className="w-full h-[1px] bg-background/50" />
-      <div className="justify-evenly mt-10 flex flex-wrap items-center gap-x-8 gap-y-10 sm:gap-x-10 lg:mx-0 lg:max-w-none">
-        {gamesList.map((game, ind) => {
-          return (
-            <div
-              key={ind}
-              className="shadow-customYP col-span-2 h-fit w-fit bg-opacity-0 object-contain lg:col-span-1 rounded-lg hover:shadow-customGI hover:cursor-pointer"
-            >
-              <GameCard
-                className="bg-foreground/5  text-foreground/50"
-                {...game}
-              ></GameCard>
-            </div>
-          );
-        })}
-      </div>
+      <CardContainer>
+        <Suspense fallback={<LoadingSkeleton />}>
+          <GameList />
+        </Suspense>
+      </CardContainer>
     </div>
   );
 };

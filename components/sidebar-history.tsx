@@ -7,10 +7,7 @@ import type { User } from "next-auth";
 import { memo, useEffect, useState } from "react";
 import { toast } from "sonner";
 import useSWR from "swr";
-
-import { GameCard } from "./game-card";
 import {
-  // CheckCircleFillIcon,
   GlobeIcon,
   LockIcon,
   MoreHorizontalIcon,
@@ -49,6 +46,7 @@ import {
 } from "@/components/ui/sidebar";
 import { fetcher } from "@/lib/utils";
 import { UserGame } from "@/lib/db/schema";
+import { GameItemCard } from "./game-item-card";
 
 type GroupedGames = {
   today: UserGame[];
@@ -60,13 +58,11 @@ type GroupedGames = {
 
 const PureGameItem = ({
   user_game,
-  game_images,
   isActive,
   onDelete,
   setOpenMobile,
 }: {
   user_game: UserGame;
-  game_images: string[];
   isActive: boolean;
   onDelete: (gameId: string) => void;
   setOpenMobile: (open: boolean) => void;
@@ -78,13 +74,10 @@ const PureGameItem = ({
           href={`/game/${user_game.game_id}`}
           onClick={() => setOpenMobile(false)}
         >
-          <GameCard
-            game_title={user_game.game_title}
-            game_id={user_game.game_id}
-            game_images={game_images}
-            game_description="The classic arcade version of snake."
+          <GameItemCard
+            user_game={user_game}
             img_border
-            className="bg-card text-foreground/50"
+            className="bg-card text-foreground/50 w-full"
           />
         </Link>
       </SidebarMenuButton>
@@ -316,9 +309,6 @@ export function SidebarHistory({ user }: { user: User | undefined }) {
                             <GameItem
                               key={user_game.id}
                               user_game={user_game}
-                              game_images={[
-                                "https://media.istockphoto.com/id/2124781220/vector/mosaic-font-green-alphabet-letters-and-numbers.jpg?s=1024x1024&w=is&k=20&c=QdzVCQu_b42k6JrTfGoTpU-KCAPWRK9fb5S29aTpPxk=",
-                              ]}
                               isActive={user_game.id === id}
                               onDelete={(gameId: any) => {
                                 setDeleteId(gameId);
@@ -344,9 +334,6 @@ export function SidebarHistory({ user }: { user: User | undefined }) {
                             <GameItem
                               key={user_game.id}
                               user_game={user_game}
-                              game_images={[
-                                "https://media.istockphoto.com/id/2124781220/vector/mosaic-font-green-alphabet-letters-and-numbers.jpg?s=1024x1024&w=is&k=20&c=QdzVCQu_b42k6JrTfGoTpU-KCAPWRK9fb5S29aTpPxk=",
-                              ]}
                               isActive={user_game.id === id}
                               onDelete={(user_gameId: any) => {
                                 setDeleteId(user_gameId);
@@ -372,9 +359,6 @@ export function SidebarHistory({ user }: { user: User | undefined }) {
                             <GameItem
                               key={user_game.id}
                               user_game={user_game}
-                              game_images={[
-                                "https://media.istockphoto.com/id/2124781220/vector/mosaic-font-green-alphabet-letters-and-numbers.jpg?s=1024x1024&w=is&k=20&c=QdzVCQu_b42k6JrTfGoTpU-KCAPWRK9fb5S29aTpPxk=",
-                              ]}
                               isActive={user_game.id === id}
                               onDelete={(gameId: any) => {
                                 setDeleteId(gameId);
@@ -400,9 +384,6 @@ export function SidebarHistory({ user }: { user: User | undefined }) {
                             <GameItem
                               key={user_game.id}
                               user_game={user_game}
-                              game_images={[
-                                "https://media.istockphoto.com/id/2124781220/vector/mosaic-font-green-alphabet-letters-and-numbers.jpg?s=1024x1024&w=is&k=20&c=QdzVCQu_b42k6JrTfGoTpU-KCAPWRK9fb5S29aTpPxk=",
-                              ]}
                               isActive={user_game.id === id}
                               onDelete={(gameId: any) => {
                                 setDeleteId(gameId);
@@ -428,9 +409,6 @@ export function SidebarHistory({ user }: { user: User | undefined }) {
                             <GameItem
                               key={user_game.id}
                               user_game={user_game}
-                              game_images={[
-                                "https://media.istockphoto.com/id/2124781220/vector/mosaic-font-green-alphabet-letters-and-numbers.jpg?s=1024x1024&w=is&k=20&c=QdzVCQu_b42k6JrTfGoTpU-KCAPWRK9fb5S29aTpPxk=",
-                              ]}
                               isActive={user_game.id === id}
                               onDelete={(gameId: any) => {
                                 setDeleteId(gameId);

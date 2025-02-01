@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+import scrollbar from "tailwind-scrollbar";
 
 const config: Config = {
   darkMode: ["class"],
@@ -22,7 +23,7 @@ const config: Config = {
         customYP:
           "3px 6px 10px -3px rgba(251, 251, 0, 0.4), 2px 4px 6px -2px rgba(119, 0, 255, 0.2)",
         customGI:
-          "3px 6px 10px -3px rgba(0, 255, 38, 0.4), 2px 4px 6px -2px rgba(255, 0, 17, 0.2)",
+          "3px 6px 10px -3px rgba(253, 44, 135, 0.4), 2px 4px 6px -2px rgba(233, 244, 9, 0.2)",
       },
       colors: {
         background: "hsl(var(--background))",
@@ -78,6 +79,10 @@ const config: Config = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate"), require("@tailwindcss/typography")],
+  plugins: [
+    require("tailwindcss-animate"),
+    require("@tailwindcss/typography"),
+    scrollbar,
+  ],
 };
 export default config;

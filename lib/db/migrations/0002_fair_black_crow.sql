@@ -1,0 +1,1 @@
+ALTER TABLE "UserGame" ADD COLUMN "game_image" varchar(255);

@@ -91,7 +91,16 @@ export async function getGameById(id: string): Promise<Array<Game>> {
   try {
     return await db.select().from(game).where(eq(game.id, id));
   } catch (error) {
-    console.error("Failed to get user from database");
+    console.error("Failed to get game from database");
+    throw error;
+  }
+}
+
+export async function getAllGames(): Promise<Game[]> {
+  try {
+    return await db.select().from(game);
+  } catch (error) {
+    console.error("Failed to get games from the database", error);
     throw error;
   }
 }

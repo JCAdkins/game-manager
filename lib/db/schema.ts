@@ -53,6 +53,7 @@ export const userGame = pgTable("UserGame", {
     .notNull()
     .references(() => game.id), // foreign key to games table
   game_title: varchar("game_title", { length: 100 }).notNull(),
+  game_image: varchar("game_image", { length: 255 }), // New column for game image
   played_at: timestamp("played_at").defaultNow(),
   score: integer("score"), // Optional: score tracking if you want
   metadata: jsonb("metadata"),
