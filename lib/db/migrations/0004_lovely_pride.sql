@@ -1,0 +1,1 @@
+ALTER TABLE "Game" ALTER COLUMN "active" SET NOT NULL;

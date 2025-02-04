@@ -1,8 +1,8 @@
 import { usePathname } from "next/navigation";
 import Form from "next/form";
 
-import { Input } from "./ui/input";
-import { Label } from "./ui/label";
+import { Input } from "../ui/input";
+import { Label } from "../ui/label";
 
 export function AuthForm({
   action,
@@ -16,7 +16,6 @@ export function AuthForm({
   defaultEmail?: string;
 }) {
   const isRegisterPage = usePathname().includes("/register");
-  const isLoginPage = usePathname().includes("/login");
 
   return (
     <Form action={action} className="flex flex-col gap-4 px-4 sm:px-16">

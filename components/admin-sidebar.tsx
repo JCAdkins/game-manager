@@ -15,12 +15,12 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarSeparator,
-  useSidebar,
+  // useSidebar,
 } from "@/components/ui/sidebar";
 
 export function AdminSidebar({ user }: { user: User | undefined }) {
   const router = useRouter();
-  const { setOpenMobile } = useSidebar();
+  // const { setOpenMobile } = useSidebar();
 
   const options = [
     { title: "Game List", func: () => console.log("Game List") },

@@ -6,6 +6,7 @@ const nextConfig: NextConfig = {
       { hostname: "media.istockphoto.com" },
       { hostname: "cdn.imweb.me" },
       { hostname: "media.cnn.com" },
+      { hostname: "a.media-amazon.com" },
     ], // Add the hostname here
   },
 };

@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { useActionState, useEffect, useState } from "react";
 import { toast } from "sonner";
 
-import { AuthForm } from "@/components/auth-form";
+import { AuthForm } from "@/components/forms/auth-form";
 import { SubmitButton } from "@/components/submit-button";
 
 import { register, type RegisterActionState } from "../actions";
@@ -34,8 +34,8 @@ export default function Page() {
       const toastee = (
         <div className="flex flex-col items-center">
           <ul className="list-disc space-y-2 pl-3">
-            {state.error?.map((err) => (
-              <li>{err}</li>
+            {state.error?.map((err, ind) => (
+              <li key={ind}>{err}</li>
             ))}
           </ul>
         </div>

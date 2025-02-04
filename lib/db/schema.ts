@@ -8,6 +8,7 @@ import {
   timestamp,
   uuid,
   integer,
+  boolean,
 } from "drizzle-orm/pg-core";
 
 export const user = pgTable("User", {
@@ -18,7 +19,6 @@ export const user = pgTable("User", {
   first_name: varchar("first-name", { length: 32 }),
   last_name: varchar("last-name", { length: 32 }),
   role: varchar("role").notNull(),
-  // profile_image: varchar("profile_picture", { length: 256 }),
   created_at: timestamp("created_at").defaultNow(),
   last_login: timestamp("last_login"),
 });
@@ -36,6 +36,7 @@ export const game = pgTable("Game", {
   version: varchar("version", { length: 10 }),
   play_count: integer("play_count").default(0),
   high_score: integer("high_score").default(0),
+  active: boolean("active").default(true).notNull(),
   screenshots: jsonb("screenshots"), // Array of image URLs
   created_at: timestamp("created_at").notNull().defaultNow(),
   updated_at: timestamp("updated_at").defaultNow(),
