@@ -1,4 +1,3 @@
-import { cookies } from "next/headers";
 import { AppSidebar } from "@/components/app-sidebar";
 import { auth } from "../(auth)/auth";
 import {
@@ -15,7 +14,6 @@ export default async function Layout({
   children: React.ReactNode;
 }) {
   const session = await auth();
-  // const isCollapsed = cookieStore.get("sidebar:state")?.value !== "true";
 
   return (
     <SidebarProvider defaultOpen={true}>
