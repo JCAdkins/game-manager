@@ -1,18 +1,11 @@
 "use server";
 
 import { GameCard } from "@/components/game-card";
-// import { auth } from "../../(auth)/auth";
 import { CardContainer } from "@/components/card-container";
 import { getAllGames } from "@/lib/db/queries";
 import { Suspense } from "react";
 
 const AdminDashboard = async () => {
-  // const session = await auth();
-
-  // if (!session || session.user?.role !== "admin") {
-  //   return null;
-  // }
-
   const LoadingSkeleton = () => {
     return (
       <>
@@ -33,7 +26,7 @@ const AdminDashboard = async () => {
       <CardContainer>
         {list.map((game, ind) => (
           <GameCard
-            key={game.id}
+            key={ind}
             grow_on_hover
             img_border
             className="bg-foreground/5 transition-transform duration-100 ease-in-out will-change-transform text-foreground/50 shadow-customYP hover:shadow-customGI hover:cursor-pointer"
@@ -43,8 +36,6 @@ const AdminDashboard = async () => {
       </CardContainer>
     );
   };
-
-  const list = await getAllGames();
 
   return (
     <div className="w-full h-full mx-auto">

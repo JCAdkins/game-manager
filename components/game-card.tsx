@@ -6,7 +6,6 @@ import { cn, formatDateToMMDDYYYY } from "@/lib/utils";
 import { Game } from "@/lib/db/schema";
 import { Modal } from "./ui/modal";
 import { AdvancedGameCard } from "./advanced-game-card";
-import { GameItem } from "./sidebar-history";
 
 export interface GameCardProps {
   children?: React.ReactNode;
@@ -22,7 +21,6 @@ export const GameCard = ({
   img_border = false,
   grow_on_hover = false,
   className,
-  onClick,
   ...props
 }: GameCardProps) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -34,10 +32,10 @@ export const GameCard = ({
     title,
     screenshots,
     description,
-    genre,
-    developer,
-    high_score,
-    version,
+    // genre,
+    // developer,
+    // high_score,
+    // version,
   } = game;
 
   const footer = (

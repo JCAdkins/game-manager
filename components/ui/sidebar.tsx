@@ -614,7 +614,7 @@ const SidebarMenuBttnCard = React.forwardRef<
     {...props}
   />
 ));
-SidebarMenuItem.displayName = "SidebarMenuBttnCard";
+SidebarMenuBttnCard.displayName = "SidebarMenuBttnCard";
 
 const SidebarMenuAction = React.forwardRef<
   HTMLButtonElement,

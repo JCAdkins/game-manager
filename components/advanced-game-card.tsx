@@ -25,7 +25,7 @@ export const AdvancedGameCard = ({
   const router = useRouter();
 
   return (
-    <div {...props}>
+    <div className={className} {...props}>
       <div className="mb-4 p-2 rounded-lg w-full max-h-[66vh] max-w-[66vw] overflow-y-auto scrollbar scrollbar-thin scrollbar-thumb-border scrollbar-track-muted">
         <ImageViewer images={screenshots as string[]} />
         <div className="md:flex md:flex-row md:items-center md:gap-2 pb-2 pt-4">
