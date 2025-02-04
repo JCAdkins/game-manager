@@ -37,7 +37,7 @@ export const game = pgTable("Game", {
   play_count: integer("play_count").default(0),
   high_score: integer("high_score").default(0),
   active: boolean("active").default(true).notNull(),
-  screenshots: jsonb("screenshots"), // Array of image URLs
+  screenshots: text("screenshots").array(), // Array of image URLs
   created_at: timestamp("created_at").notNull().defaultNow(),
   updated_at: timestamp("updated_at").defaultNow(),
 });

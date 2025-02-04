@@ -68,7 +68,7 @@ export const GameCard = ({
       >
         <div className="flex flex-row gap-2">
           <img
-            src={screenshots[0]}
+            src={screenshots ? screenshots[0] : "Game Image"}
             alt="Game Image"
             className={`max-w-[100px] max-h-[75px] w-fit h-fit rounded-lg ${
               img_border ? "border-2 border-foreground/50" : ""
