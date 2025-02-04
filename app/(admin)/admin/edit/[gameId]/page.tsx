@@ -1,13 +1,13 @@
 import { getGameById } from "@/lib/db/queries";
 import GameEditor from "@/components/game-editor";
 
-type Params = Promise<{ gameId: string }>;
-
-export default async function AdminEditPage(props: { params: Params }) {
-  /* Await is not currently needed for the app to work but it could change in the future.
-    Right now await is just suppressing a warning that Next.js gives about the future change. */
-  const params = await props.params;
-  const gameId = params.gameId;
+export default async function AdminEditPage({
+  params,
+}: {
+  params: Promise<{ gameId: string }>;
+}) {
+  // @ts-expect-error Next.js 15 requires params to be awaited, but TypeScript complains
+  const { gameId } = await params;
   const game = await getGameById(gameId);
 
   if (!game) {
