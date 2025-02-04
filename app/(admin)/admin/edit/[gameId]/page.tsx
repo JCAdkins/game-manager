@@ -1,12 +1,12 @@
 import { getGameById } from "@/lib/db/queries";
 import GameEditor from "@/components/game-editor";
 
+// @ts-expect-error Next.js 15 requires params to be awaited, but TypeScript complains
 export default async function AdminEditPage({
   params,
 }: {
   params: Promise<{ gameId: string }>;
 }) {
-  // @ts-expect-error Next.js 15 requires params to be awaited, but TypeScript complains
   const { gameId } = await params;
   const game = await getGameById(gameId);
 
