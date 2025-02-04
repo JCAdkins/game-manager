@@ -3,9 +3,9 @@ import { getGameById } from "@/lib/db/queries";
 export default async function GamePage({
   params,
 }: {
-  params: { gameId: string };
+  params: Promise<{ gameId: string }>;
 }) {
-  const { gameId } = params;
+  const { gameId } = await params;
 
   const game = await getGameById(gameId);
 
