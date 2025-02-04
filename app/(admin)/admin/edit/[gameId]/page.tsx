@@ -1,14 +1,13 @@
 import { getGameById } from "@/lib/db/queries";
 import GameEditor from "@/components/game-editor";
 
-export default async function AdminEditPage({
-  params,
-}: {
-  params: Promise<{ gameId: string }>;
-}) {
+type Params = Promise<{ gameId: string }>;
+
+export default async function AdminEditPage(props: { params: Params }) {
   /* Await is not currently needed for the app to work but it could change in the future.
     Right now await is just suppressing a warning that Next.js gives about the future change. */
-  const { gameId }: { gameId: string } = await params;
+  const params = await props.params;
+  const gameId = params.gameId;
   const game = await getGameById(gameId);
 
   if (!game) {
