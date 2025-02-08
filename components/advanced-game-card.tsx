@@ -29,9 +29,9 @@ export const AdvancedGameCard = ({
       <div className="mb-4 p-2 rounded-lg w-full max-h-[66vh] max-w-[66vw] overflow-y-auto scrollbar scrollbar-thin scrollbar-thumb-border scrollbar-track-muted">
         <ImageViewer images={screenshots as string[]} />
         <div className="md:flex md:flex-row md:items-center md:gap-2 pb-2 pt-4">
-          <div className="w-full h-[1px] bg-background" />
+          <div className="w-full h-[1px] bg-foreground/50" />
           <h2 className="md:text-nowrap">Basic Info</h2>
-          <div className="w-full h-[1px] bg-background" />
+          <div className="w-full h-[1px] bg-foreground/50" />
         </div>
         <div className="flex flex-col gap-2">
           <p>Title: {title}</p>
@@ -49,9 +49,9 @@ export const AdvancedGameCard = ({
           </p>
         </div>
         <div className="md:flex md:flex-row md:items-center md:gap-2 py-2">
-          <div className="w-full h-[1px] bg-background" />
+          <div className="w-full h-[1px] bg-foreground/50" />
           <h2 className="md:text-nowrap">Game Stats</h2>
-          <div className="w-full h-[1px] bg-background"></div>
+          <div className="w-full h-[1px] bg-foreground/50"></div>
         </div>
         <p>Plays: {play_count}</p>
 

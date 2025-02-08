@@ -1,94 +1,148 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Game } from "@/lib/db/schema";
+import { deepEqual } from "@/lib/utils"; // Utility function to compare objects
+import { Card } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Button } from "@/components/ui/button";
+import {
+  Sheet,
+  SheetTrigger,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetFooter,
+} from "@/components/ui/sheet";
 import ImageUploader from "./image-uploader";
 import GameMetadata from "./game-metadata";
 import GameActions from "./game-actions";
 
 export default function GameEditor({ game }: { game: Game }) {
   const [gameData, setGameData] = useState<Game>(game);
+  const [isDirty, setIsDirty] = useState(false); // Track if changes were made
+  const [editedFields, setEditedFields] = useState<Record<string, boolean>>({}); // Tracks edited fields
+
+  // Store original game data for comparison
+  const [originalGameData] = useState<Game>(game);
+
+  // Check for changes on every gameData update
+  useEffect(() => {
+    setIsDirty(!deepEqual(originalGameData, gameData));
+  }, [gameData, originalGameData]);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
     setGameData((prev) => ({ ...prev, [name]: value }));
+    setEditedFields((prev) => ({
+      ...prev,
+      [name]: value !== originalGameData[name as keyof Game],
+    })); // Mark field as edited
   };
 
   return (
-    <div className="p-4 bg-card rounded-lg shadow-md space-y-4">
-      <h2 className="text-lg font-bold text-center">Edit Game</h2>
-
+    <Card className="p-6 space-y-6 bg-foreground/5">
       {/* Title */}
-      <label className="block">
-        <span className="text-sm">Title:</span>
-        <input
+      <div className="space-y-2">
+        <Label htmlFor="title">Title</Label>
+        <Input
+          id="title"
           type="text"
           name="title"
           value={gameData.title}
           onChange={handleChange}
-          className="w-full p-2 border rounded"
+          className={
+            editedFields["title"] ? "border-2 border-chart-4 bg-chart-4/10" : ""
+          }
         />
-      </label>
+      </div>
 
       {/* Description */}
-      <label className="block">
-        <span className="text-sm">Description:</span>
-        <textarea
+      <div className="space-y-2">
+        <Label htmlFor="description">Description</Label>
+        <Input
+          id="description"
+          type="text"
           name="description"
           value={gameData.description || ""}
           onChange={handleChange}
-          className="w-full p-2 border rounded"
+          className={
+            editedFields["description"]
+              ? "border-2 border-chart-4 bg-chart-4/10"
+              : ""
+          }
         />
-      </label>
+      </div>
 
       {/* Developer & Platform */}
       <div className="grid grid-cols-2 gap-4">
-        <label className="block">
-          <span className="text-sm">Developer:</span>
-          <input
+        <div className="space-y-2">
+          <Label htmlFor="developer">Developer</Label>
+          <Input
+            id="developer"
             type="text"
             name="developer"
             value={gameData.developer || ""}
             onChange={handleChange}
-            className="w-full p-2 border rounded"
+            className={
+              editedFields["developer"]
+                ? "border-2 border-chart-4 bg-chart-4/10"
+                : ""
+            }
           />
-        </label>
-        <label className="block">
-          <span className="text-sm">Platform:</span>
-          <input
+        </div>
+        <div className="space-y-2">
+          <Label htmlFor="platform">Platform</Label>
+          <Input
+            id="platform"
             type="text"
             name="platform"
             value={gameData.platform || ""}
             onChange={handleChange}
-            className="w-full p-2 border rounded"
+            className={
+              editedFields["platform"]
+                ? "border-2 border-chart-4 bg-chart-4/10"
+                : ""
+            }
           />
-        </label>
+        </div>
       </div>
 
       {/* Genre & Version */}
       <div className="grid grid-cols-2 gap-4">
-        <label className="block">
-          <span className="text-sm">Genre:</span>
-          <input
+        <div className="space-y-2">
+          <Label htmlFor="genre">Genre</Label>
+          <Input
+            id="genre"
             type="text"
             name="genre"
             value={gameData.genre || ""}
             onChange={handleChange}
-            className="w-full p-2 border rounded"
+            className={
+              editedFields["genre"]
+                ? "border-2 border-chart-4 bg-chart-4/10"
+                : ""
+            }
           />
-        </label>
-        <label className="block">
-          <span className="text-sm">Version:</span>
-          <input
+        </div>
+        <div className="space-y-2">
+          <Label htmlFor="version">Version</Label>
+          <Input
+            id="version"
             type="text"
             name="version"
             value={gameData.version || ""}
             onChange={handleChange}
-            className="w-full p-2 border rounded"
+            className={
+              editedFields["version"]
+                ? "border-2 border-chart-4 bg-chart-4/10"
+                : ""
+            }
           />
-        </label>
+        </div>
       </div>
 
       {/* Screenshots */}
@@ -103,7 +157,27 @@ export default function GameEditor({ game }: { game: Game }) {
       <GameMetadata game={gameData} setGameData={setGameData} />
 
       {/* Game Actions (Save, Delete, Deactivate) */}
-      <GameActions game={gameData} />
-    </div>
+      <GameActions
+        game={gameData}
+        isDirty={isDirty}
+        // setGameData={setGameData}
+      />
+
+      {/* Sidebar Editor (Sheet) */}
+      <Sheet>
+        <SheetTrigger asChild>
+          <Button variant="outline">Advanced Settings</Button>
+        </SheetTrigger>
+        <SheetContent side="right">
+          <SheetHeader>
+            <SheetTitle>Advanced Game Settings</SheetTitle>
+          </SheetHeader>
+          {/* You can add more advanced settings here */}
+          <SheetFooter>
+            <Button variant="default">Save Changes</Button>
+          </SheetFooter>
+        </SheetContent>
+      </Sheet>
+    </Card>
   );
 }

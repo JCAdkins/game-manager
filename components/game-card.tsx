@@ -40,7 +40,11 @@ export const GameCard = ({
 
   const footer = (
     <div className="flex w-full justify-between">
-      <p>Plays: {play_count}</p>
+      <p>
+        Plays: {play_count}
+        {"   "}
+      </p>
+
       <p>
         Released:{" "}
         {formatDateToMMDDYYYY(
@@ -74,7 +78,9 @@ export const GameCard = ({
               img_border ? "border-2 border-foreground/50" : ""
             }`}
           />
-          <p className="flex flex-row max-w-[15ch]">{description}</p>
+          <p className="flex flex-row max-w-[20ch] min-w-[15ch]">
+            {description}
+          </p>
         </div>
       </Card>
 

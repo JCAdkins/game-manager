@@ -11,7 +11,7 @@ interface GameMetadata {
   version: string;
   play_count: number;
   high_score: number;
-  screenshots: [];
+  screenshots: string[];
   created_at: number;
   updated_at: number;
 }

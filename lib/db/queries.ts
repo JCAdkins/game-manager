@@ -20,7 +20,7 @@ import {
 
 // biome-ignore lint: Forbidden non-null assertion.
 const client = postgres(process.env.POSTGRES_URL!);
-const db = drizzle(client);
+export const db = drizzle(client);
 
 export async function getUserByEmail(email: string): Promise<Array<User>> {
   try {
@@ -105,6 +105,17 @@ export async function getAllGames(): Promise<Game[]> {
   }
 }
 
+export async function updateGame(
+  gameId: string,
+  updatedGame: Partial<typeof game.$inferInsert>
+) {
+  return await db
+    .update(game)
+    .set(updatedGame)
+    .where(eq(game.id, gameId))
+    .returning();
+}
+
 export async function createGame(
   title: string,
   description: string,
@@ -128,6 +139,10 @@ export async function createGame(
     console.error("Failed to create game in database.");
     throw error;
   }
+}
+
+export async function deleteGame(gameId: string) {
+  return await db.delete(game).where(eq(game.id, gameId));
 }
 
 export async function getUserGame(

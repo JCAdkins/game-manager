@@ -1,5 +1,6 @@
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
+import { Game } from "./db/schema";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -39,4 +40,8 @@ export function formatDateToMMDDYYYY(dateString: string) {
   const year = date.getFullYear(); // Full year
 
   return `${month}/${day}/${year}`;
+}
+
+export function deepEqual(obj1: any, obj2: any): boolean {
+  return JSON.stringify(obj1) === JSON.stringify(obj2);
 }
